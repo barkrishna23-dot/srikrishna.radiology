@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  --bg-main: #0B1026;
+  --bg-depth: #171032;
+  --surface: #151D38;
+  --surface-hover: #20284A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E2E8F5;
+  --accent-cyan: #42D8D5;
+  --accent-orange: #FF873B;
+  --accent-pink: #E44CA5;
+  --button-bg: #283E86;
+}
+
+body {
+  font-family: "Hind Siliguri", sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.font-bengali {
+  font-family: "Hind Siliguri", sans-serif;
+}
+
+.font-mono-tech {
+  font-family: "Roboto Mono", "Courier New", monospace;
+}
+
+.font-editorial {
+  font-family: Georgia, serif;
+}
+
+.font-english {
+  font-family: Arial, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1026;
+}
+::-webkit-scrollbar-thumb {
+  background: #20284A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #42D8D5;
+}
+
+/* Subtle background medical grid texture */
+.bg-scan-grid {
+  background-image: linear-gradient(to right, rgba(66, 216, 213, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(66, 216, 213, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Rainbow border gradient echoing the SK logo */
+.border-sk-gradient {
+  border-image: linear-gradient(135deg, #FDE047 0%, #42D8D5 30%, #3B82F6 50%, #E44CA5 75%, #FF873B 100%) 1;
+}
+
+/* Animated Thin Spectrum Rainbow Light Movement - Exact colors from Footer divider */
+@keyframes spectrumBorderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.golden-thin-card,
+.spectrum-thin-card {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.5px;
+  background: #20284A;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.golden-thin-card::before,
+.spectrum-thin-card::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 195deg,
+    #FACC15 225deg,
+    #42D8D5 255deg,
+    #3B82F6 285deg,
+    #E44CA5 320deg,
+    #FF873B 352deg,
+    transparent 360deg
+  );
+  animation: spectrumBorderRotate 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.golden-thin-card > *,
+.spectrum-thin-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes scanSweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+.animate-scan-sweep {
+  animation: scanSweep 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scan-sweep {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Protected CV print prevention */
+@media print {
+  #cv-document-sheet,
+  [role="dialog"] {
+    display: none !important;
+  }
+}
+
