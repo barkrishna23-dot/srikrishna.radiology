@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ activeView, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, toggleLanguage, t } = useLanguage();
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -87,85 +87,72 @@ export const Header: React.FC<HeaderProps> = ({ activeView, onNavigate }) => {
         </nav>
 
         {/* Right side: Language Switcher + Contact CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Dual Language Switcher: বাংলা / English */}
-          <div
-            className="flex items-center rounded-xl bg-[#151D38] p-1 border border-[#20284A] shadow-inner"
-            role="group"
-            aria-label="Language selector"
+        <div className="hidden md:flex items-center gap-2 mr-3 lg:mr-6">
+          {/* Single Combined Language Toggle: বাংলা / English in one place */}
+          <button
+            type="button"
+            id="lang-toggle-btn"
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-semibold bg-[#151D38] hover:bg-[#1f2a4f] text-white border border-[#20284A] hover:border-[#42D8D5]/40 transition-all shadow-xs cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#42D8D5]"
+            title={language === 'bn' ? 'Switch to English' : 'বাংলায় পরিবর্তন করুন'}
+            aria-label="Toggle language (বাংলা / English)"
           >
-            <Globe className="w-3.5 h-3.5 text-[#42D8D5] ml-2 mr-1 opacity-75" aria-hidden="true" />
-            <button
-              type="button"
-              id="lang-btn-bn"
-              onClick={() => setLanguage('bn')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all font-bengali ${
+            <Globe className="w-3 h-3 text-[#42D8D5] shrink-0" aria-hidden="true" />
+            <span
+              className={`transition-colors ${
                 language === 'bn'
-                  ? 'bg-[#42D8D5] text-[#0B1026] shadow-sm font-bold'
-                  : 'text-[#E2E8F5]/70 hover:text-white hover:bg-[#20284A]/60'
+                  ? 'font-bengali font-bold text-[#42D8D5]'
+                  : 'font-bengali text-[#E2E8F5]/60 hover:text-white'
               }`}
-              aria-pressed={language === 'bn'}
             >
               বাংলা
-            </button>
-            <button
-              type="button"
-              id="lang-btn-en"
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all font-mono-tech ${
+            </span>
+            <span className="text-[#E2E8F5]/30 text-[10px] select-none">/</span>
+            <span
+              className={`transition-colors ${
                 language === 'en'
-                  ? 'bg-[#42D8D5] text-[#0B1026] shadow-sm font-bold'
-                  : 'text-[#E2E8F5]/70 hover:text-white hover:bg-[#20284A]/60'
+                  ? 'font-mono-tech font-bold text-[#42D8D5]'
+                  : 'font-mono-tech text-[#E2E8F5]/60 hover:text-white'
               }`}
-              aria-pressed={language === 'en'}
             >
-              English
-            </button>
-          </div>
+              EN
+            </span>
+          </button>
 
           {/* Contact CTA Button */}
           <a
             href="#contact"
             onClick={(e) => handleNavClick('contact', e)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-[#283E86] hover:bg-[#3451b0] text-white transition-all shadow-sm border border-[#42D8D5]/30 hover:border-[#42D8D5]"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-[#283E86] hover:bg-[#3451b0] text-white transition-all shadow-xs border border-[#42D8D5]/30 hover:border-[#42D8D5]"
           >
             <span>{t.nav.contactCta}</span>
-            <ArrowUpRight className="w-4 h-4 text-[#42D8D5]" />
+            <ArrowUpRight className="w-3 h-3 text-[#42D8D5]" />
           </a>
         </div>
 
         {/* Mobile controls */}
-        <div className="flex md:hidden items-center gap-2">
-          {/* Compact Mobile Language Switcher */}
-          <div
-            className="flex items-center rounded-lg bg-[#151D38] p-0.5 border border-[#20284A]"
-            role="group"
-            aria-label="Language selector"
+        <div className="flex md:hidden items-center gap-1.5">
+          {/* Single Combined Mobile Language Switcher */}
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-semibold bg-[#151D38] border border-[#20284A] text-white focus:outline-none focus:ring-1 focus:ring-[#42D8D5]"
+            aria-label="Toggle language"
           >
-            <button
-              type="button"
-              onClick={() => setLanguage('bn')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all font-bengali ${
-                language === 'bn' ? 'bg-[#42D8D5] text-[#0B1026] font-bold' : 'text-[#E2E8F5]/70'
-              }`}
-            >
+            <Globe className="w-2.5 h-2.5 text-[#42D8D5] shrink-0" aria-hidden="true" />
+            <span className={language === 'bn' ? 'text-[#42D8D5] font-bengali font-bold' : 'text-[#E2E8F5]/60 font-bengali'}>
               বাং
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-[11px] font-semibold transition-all font-mono-tech ${
-                language === 'en' ? 'bg-[#42D8D5] text-[#0B1026] font-bold' : 'text-[#E2E8F5]/70'
-              }`}
-            >
+            </span>
+            <span className="text-[#E2E8F5]/30 text-[9px]">/</span>
+            <span className={language === 'en' ? 'text-[#42D8D5] font-mono-tech font-bold' : 'text-[#E2E8F5]/60 font-mono-tech'}>
               EN
-            </button>
-          </div>
+            </span>
+          </button>
 
           <a
             href="#contact"
             onClick={(e) => handleNavClick('contact', e)}
-            className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[#283E86] text-white border border-[#42D8D5]/30"
+            className="px-2 py-1 rounded-md text-[11px] font-semibold bg-[#283E86] text-white border border-[#42D8D5]/30"
           >
             {t.nav.contact}
           </a>

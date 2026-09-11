@@ -20,7 +20,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onNavigate }) => {
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* Left Column: ~56% width (7 of 12 columns) */}
-        <div className="lg:col-span-7 flex flex-col justify-center space-y-5">
+        <div className="lg:col-span-7 flex flex-col justify-center space-y-5 pt-[0.5in]">
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.28] font-bengali">
             {t.hero.heading.includes(',') ? (

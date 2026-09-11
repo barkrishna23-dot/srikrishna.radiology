@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShieldCheck, MapPin, FileText } from 'lucide-react';
 import { siteConfig } from '../data/content';
 import { CvModal } from './CvModal';
@@ -13,7 +13,6 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
   imageSrc,
 }) => {
   const [isCvOpen, setIsCvOpen] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(() => {
     if (imageSrc) return imageSrc;
     try {
@@ -31,7 +30,6 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
         '/krish_pp.jpg',
         '/krish-pp.jpg',
         '/krish.jpg',
-        '/srikrishna.jpg',
         '/profile.jpg',
       ];
       for (const path of testPaths) {
@@ -49,67 +47,11 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
     }
   }, [currentImage]);
 
-  const handlePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (result) {
-          setCurrentImage(result);
-          try {
-            localStorage.setItem('srikrishna_portrait_photo', result);
-          } catch (err) {
-            console.warn('LocalStorage quota exceeded for image', err);
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleFrameClick = () => {
-    if (!currentImage) {
-      fileInputRef.current?.click();
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    if (currentImage) return;
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (result) {
-          setCurrentImage(result);
-          try {
-            localStorage.setItem('srikrishna_portrait_photo', result);
-          } catch {
-            // ignore
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <div
       id="personal-portrait-card"
       className={`golden-thin-card transition-all w-full max-w-[440px] mt-3.5 sm:mt-5 ${className}`}
     >
-      {/* Hidden file input for one-click attachment of photo */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handlePhotoSelect}
-        accept="image/*"
-        className="hidden"
-        aria-label="Upload photo"
-      />
-
       <div className="relative w-full rounded-[14px] bg-[#12182F] p-3 sm:p-4 overflow-hidden shadow-xl border border-[#20284A]">
         {/* ID Card Lanyard Punch Slot */}
         <div className="flex justify-center -mt-1 mb-2">
@@ -160,21 +102,16 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
 
           {/* Right side portrait frame: sized like standard passport photo on ID badge */}
           <div
-            onClick={handleFrameClick}
-            onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
-            title={currentImage ? 'Srikrishna Bar - Radiology Technologist' : 'Click to select krish pp.jpg'}
-            className={`relative w-24 sm:w-28 h-28 sm:h-32 rounded-lg overflow-hidden border-2 border-[#42D8D5]/50 bg-[#00AEEF] shrink-0 shadow-md ${
-              !currentImage ? 'cursor-pointer hover:border-[#42D8D5]' : ''
-            }`}
+            title="Srikrishna Bar - Radiology Technologist"
+            className="relative w-24 sm:w-28 h-28 sm:h-32 rounded-lg overflow-hidden border-2 border-[#42D8D5]/50 bg-[#00AEEF] shrink-0 shadow-md select-none"
           >
             {currentImage ? (
-              /* Real portrait photo - permanently fixed without delete/add buttons */
+              /* Real portrait photo */
               <img
                 src={currentImage}
                 alt="Srikrishna Bar - Radiology Technologist"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-top pointer-events-none"
               />
             ) : (
               /* Fallback SVG representation matching krish pp.jpg */
