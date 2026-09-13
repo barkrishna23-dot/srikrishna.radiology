@@ -217,10 +217,6 @@ export const AboutView: React.FC = () => {
                     <span className="text-white">X-Ray, CT, MRI, PACS</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[#20284A]/40">
-                    <span className="text-[#E2E8F5]/60">CREATIVE:</span>
-                    <span className="text-white">Photo, Video, Web, 3D</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-[#20284A]/40">
                     <span className="text-[#E2E8F5]/60">{t.about.statusLabel}</span>
                     <span className="text-[#42D8D5]">{t.about.statusActive}</span>
                   </div>

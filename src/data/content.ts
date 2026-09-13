@@ -129,6 +129,32 @@ export const timelineData: TimelineEntry[] = [
 
 export const educationData: EducationEntry[] = [
   {
+    id: 'diploma-radiology',
+    degree: 'DIPLOMA (In Medical Radiology & Imaging Technology)',
+    institution: 'OM STERLING GLOBAL UNIVERSITY - PARAMEDICAL INSTITUTE OF KOLKATA',
+    period: '2024',
+    location: 'Kolkata, West Bengal',
+    status: 'U.G.C',
+    details: [
+      'From OM STERLING GLOBAL UNIVERSITY - PARAMEDICAL INSTITUTE OF KOLKATA',
+      'Diploma in Medical Radiology & Imaging Technology (2024)',
+      'U.G.C Recognized Program • মেডিক্যাল রেডিওলজি ও ইমেজিং টেকনোলজি',
+    ],
+  },
+  {
+    id: 'bengali-honours',
+    degree: 'HONOURS SUBJECT : BENGALI',
+    institution: 'Netaji Subhas Open University (N.S.O.U)',
+    period: '(B.A) 2021',
+    location: 'West Bengal',
+    status: 'Grade / Class (A+)',
+    details: [
+      'Honours Subject: Bengali [EBG] (N.S.O.N)',
+      '(B-09) Sonarpur Mahavidyalaya',
+      'বাংলা ভাষা ও সাহিত্যে স্নাতক • Grade / Class (A+)',
+    ],
+  },
+  {
     id: 'vivo',
     degree: 'Radiology & Imaging Technology',
     institution: 'VIVO Healthcare, Jodhpur Park',
@@ -141,26 +167,27 @@ export const educationData: EducationEntry[] = [
     ],
   },
   {
-    id: 'diploma',
-    degree: 'Diploma / Technical Education',
-    institution: 'Recognized Technical Board',
-    period: 'উৎস অনুযায়ী নথিভুক্ত',
-    location: 'West Bengal',
-    status: 'In Progress (CV অনুযায়ী নথিভুক্ত)',
-    details: [
-      'উৎস নথিতে এই কোর্সের চলমান স্ট্যাটাস উল্লেখ রয়েছে',
-      'প্রযুক্তি ও টেকনিক্যাল বিষয়ে ধারাবাহিক জ্ঞানার্জন',
-    ],
-  },
-  {
     id: 'school',
-    degree: 'Secondary & Higher Secondary Education',
+    degree: 'Higher Secondary Education (10+2)',
     institution: 'West Bengal State Board',
-    period: 'সমাপ্ত',
+    period: '2018',
     location: 'West Bengal',
     details: [
       'বিজ্ঞান ও সাধারণ শিক্ষায় ভিত্তি',
       'ভাষাগত দক্ষতা: বাংলা, হিন্দি, ইংরেজি ও নেপালি',
+    ],
+  },
+  {
+    id: 'madhyamik',
+    degree: 'MADHYAMIK ( W.B.B.S.E )',
+    institution: 'PALPUR ADARSHA VIDYAPITH',
+    period: '2016',
+    location: 'West Bengal',
+    status: 'Grade / Class (C)',
+    details: [
+      'From PALPUR ADARSHA VIDYAPITH',
+      'উত্তীর্ণের বছর: ২০১৬ • গ্রেড/শ্রেণি: (C)',
+      'West Bengal Board of Secondary Education (W.B.B.S.E)',
     ],
   },
 ];
