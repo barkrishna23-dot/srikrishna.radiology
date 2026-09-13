@@ -74,6 +74,7 @@ export interface TranslationSchema {
       location: string;
       description: string;
       statusNote?: string;
+      documentNo?: string;
     }[];
     education: {
       id: string;
@@ -348,31 +349,39 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
       sourceNote: 'SOURCE NOTE:',
       timeline: [
         {
-          id: 'kalimpong',
-          title: 'Radiology Technologist',
-          organization: 'District Hospital Kalimpong / Eskag Sanjeevani',
-          period: 'August 2020 – Till Now',
-          location: 'Kalimpong, West Bengal',
+          id: 'rso',
+          title: 'RSO (Radiology Safety Officer)',
+          organization: 'Radiology Safety Officer',
+          period: 'Certified',
+          location: 'West Bengal',
+          documentNo: '24-RSO-1243744',
           description:
-            'ডিজিটাল এক্স-রে ও ডায়াগনস্টিক ইমেজিং বিভাগে দায়িত্ব পালন। রোগীর পজিশনিং, রেডিয়েশন সুরক্ষা ও স্পষ্ট মেডিক্যাল স্ক্যান নিশ্চিতকরণ।',
-          statusNote:
-            'বর্তমান কর্মসংস্থান সংক্রান্ত তথ্য উৎস CV অনুযায়ী সংরক্ষিত; নিয়মিত হালনাগাদের যোগ্য।',
+            'রেডিওলজিক্যাল সেফটি অফিসার (RSO) হিসেবে রেডিয়েশন সুরক্ষা ও নিরাপত্তা মান নিয়ন্ত্রণ।',
+        },
+        {
+          id: 'kalimpong',
+          title: 'রেডিওলজি টেকনিশিয়ান',
+          organization: 'ডিস্ট্রিক্ট হসপিটাল কালিম্পং / এসকাগ সঞ্জীবনী',
+          period: 'আগস্ট ২০২০ – বর্তমান',
+          location: 'কালিম্পং, পশ্চিমবঙ্গ',
+          description:
+            'রেডিওলজি টেকনিশিয়ান – MRI, CT SCAN ও ডিজিটাল X-RAY\nMRI- 1.5 TESLA / PHILIPS ( INGENIA)\nCT SCAN - SIEMENS 16 SLICE ( SOMATOM SCOPE)\nX- RAY- AGFA 600 mA',
         },
         {
           id: 'greenview',
-          title: 'Radiology Technologist',
-          organization: 'Green View Clinic',
-          period: 'March 2020 – June 2020',
-          location: 'West Bengal',
+          title: 'রেডিওলজি টেকনিশিয়ান',
+          organization: 'GREEN VIEW CLINIC PVD. LTD',
+          period: 'মার্চ ২০২০ – জুন ২০২০',
+          location: 'পশ্চিমবঙ্গ',
           description:
-            'ডায়াগনস্টিক এক্স-রে সেবা প্রদান এবং রোগীর প্রয়োজনীয় সুরক্ষা প্রটোকল বজায় রেখে কাজ করা।',
+            'Bharatiya Reserve Bank Note Mudran pvd. Ltd\n( X-RAY GME CR )',
         },
         {
           id: 'barasat',
-          title: 'Intern Radiology Technologist',
-          organization: 'Barasat District Hospital',
-          period: 'September 2019 – February 2020',
-          location: 'Barasat, West Bengal',
+          title: 'ইন্টার্ন রেডিওলজি টেকনিশিয়ান',
+          organization: 'বারাসাত জেলা হাসপাতাল',
+          period: 'সেপ্টেম্বর ২০১৯ – ফেব্রুয়ারি ২০২০',
+          location: 'বারাসাত, পশ্চিমবঙ্গ',
           description:
             'রেডিওলজি বিভাগে ব্যবহারিক ইন্টার্নশিপ—বিভিন্ন এক্স-রে প্রসিডিউর, ইমেজিং টেকনিক ও পেশাদার হসপিটাল ওয়ার্কফ্লোর প্রত্যক্ষ অভিজ্ঞতা।',
         },
@@ -410,6 +419,7 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
           institution: 'VIVO Healthcare, Jodhpur Park',
           period: '2019',
           location: 'Kolkata, West Bengal',
+          status: 'Grade / Class (B)',
           details: [
             'Digital X-Ray, CT Scan ও MRI ইমেজিংয়ের ফান্ডামেন্টাল ট্রেনিং',
             'রেডিয়েশন প্রটেকশন প্রোটোকল ও ALARA প্রিন্সিপল',
@@ -418,13 +428,14 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
         },
         {
           id: 'school',
-          degree: 'Higher Secondary Education (10+2)',
-          institution: 'West Bengal State Board',
+          degree: 'HIGHER SECONDARY ( W.B.C.H.S.E )',
+          institution: 'BIPRADASPUR HIGH SCHOOL',
           period: '2018',
           location: 'West Bengal',
+          status: 'Grade / Class (B)',
           details: [
-            'বিজ্ঞান ও সাধারণ শিক্ষায় ভিত্তি',
-            'ভাষাগত দক্ষতা: বাংলা, হিন্দি, ইংরেজি ও নেপালি',
+            'From BIPRADASPUR HIGH SCHOOL',
+            'উত্তীর্ণের বছর: ২০১৮',
           ],
         },
         {
@@ -436,7 +447,7 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
           status: 'Grade / Class (C)',
           details: [
             'From PALPUR ADARSHA VIDYAPITH',
-            'উত্তীর্ণের বছর: ২০১৬ • গ্রেড/শ্রেণি: (C)',
+            'উত্তীর্ণের বছর: ২০১৬',
             'West Bengal Board of Secondary Education (W.B.B.S.E)',
           ],
         },
@@ -913,28 +924,36 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
       sourceNote: 'SOURCE NOTE:',
       timeline: [
         {
+          id: 'rso',
+          title: 'RSO (Radiology Safety Officer)',
+          organization: 'Radiology Safety Officer',
+          period: 'Certified',
+          location: 'West Bengal',
+          documentNo: '24-RSO-1243744',
+          description:
+            'Radiological Safety Officer (RSO) compliance, radiation hazard monitoring, ALARA protocol, and diagnostic safety protocols.',
+        },
+        {
           id: 'kalimpong',
-          title: 'Radiology Technologist',
+          title: 'Radiology Technician',
           organization: 'District Hospital Kalimpong / Eskag Sanjeevani',
           period: 'August 2020 – Present',
           location: 'Kalimpong, West Bengal',
           description:
-            'Managing Digital X-ray and diagnostic imaging services. Responsible for patient positioning, strict radiation protection protocols, and optimal scan quality.',
-          statusNote:
-            'Employment details preserved accurately according to source CV documentation.',
+            'Radiology Technician - MRI , CT SCAN & DIGITAL X- RAY\nMRI- 1.5 TESLA / PHILIPS ( INGENIA)\nCT SCAN - SIEMENS 16 SLICE ( SOMATOM SCOPE)\nX- RAY- AGFA 600 mA',
         },
         {
           id: 'greenview',
-          title: 'Radiology Technologist',
-          organization: 'Green View Clinic',
+          title: 'Radiology Technician',
+          organization: 'GREEN VIEW CLINIC PVD. LTD',
           period: 'March 2020 – June 2020',
           location: 'West Bengal',
           description:
-            'Administered routine and specialized diagnostic X-ray procedures adhering to comprehensive patient safety standards.',
+            'Bharatiya Reserve Bank Note Mudran pvd. Ltd\n( X-RAY GME CR )',
         },
         {
           id: 'barasat',
-          title: 'Intern Radiology Technologist',
+          title: 'Intern Radiology Technician',
           organization: 'Barasat District Hospital',
           period: 'September 2019 – February 2020',
           location: 'Barasat, West Bengal',
@@ -975,6 +994,7 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
           institution: 'VIVO Healthcare, Jodhpur Park',
           period: '2019',
           location: 'Kolkata, West Bengal',
+          status: 'Grade / Class (B)',
           details: [
             'Fundamental clinical training in Digital X-ray, CT Scan, and MRI physics',
             'Radiation protection regulations and ALARA principle mastery',
@@ -983,13 +1003,14 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
         },
         {
           id: 'school',
-          degree: 'Higher Secondary Education (10+2)',
-          institution: 'West Bengal State Board',
+          degree: 'HIGHER SECONDARY ( W.B.C.H.S.E )',
+          institution: 'BIPRADASPUR HIGH SCHOOL',
           period: '2018',
           location: 'West Bengal',
+          status: 'Grade / Class (B)',
           details: [
-            'Strong foundation in science and general academics',
-            'Language fluency: Bengali, Hindi, English, and Nepali',
+            'From BIPRADASPUR HIGH SCHOOL',
+            'Passing Year: 2018',
           ],
         },
         {
@@ -1001,7 +1022,7 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
           status: 'Grade / Class (C)',
           details: [
             'From PALPUR ADARSHA VIDYAPITH',
-            'Passing Year: 2016 • Grade/Class: (C)',
+            'Passing Year: 2016',
             'West Bengal Board of Secondary Education (W.B.B.S.E)',
           ],
         },

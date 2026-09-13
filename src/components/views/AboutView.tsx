@@ -30,7 +30,7 @@ const renderFormattedText = (text: string) => {
 export const AboutView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'bio' | 'experience' | 'education'>('bio');
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   return (
     <div className="w-full py-6 md:py-10 max-w-[1100px] mx-auto space-y-10 animate-fade-in">
@@ -284,7 +284,7 @@ export const AboutView: React.FC = () => {
 
                 <div className="rounded-2xl bg-[#151D38] border border-[#20284A] p-6 space-y-3 shadow-lg hover:border-[#42D8D5]/40 transition-colors">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="text-lg font-bold text-white font-bengali">
+                    <h3 className={`text-lg font-bold text-white ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
                       {item.title}
                     </h3>
                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0B1026] text-xs font-mono-tech text-[#42D8D5] border border-[#20284A]">
@@ -304,15 +304,18 @@ export const AboutView: React.FC = () => {
                     </span>
                   </div>
 
-                  <p className="text-sm text-[#E2E8F5]/85 leading-relaxed font-bengali">
-                    {item.description}
-                  </p>
-
-                  {item.statusNote && (
-                    <div className="pt-2 text-xs font-mono-tech text-[#E2E8F5]/60 bg-[#0B1026]/40 p-2.5 rounded-lg border border-[#20284A]/60">
-                      <strong>{t.about.sourceNote}</strong> {item.statusNote}
+                  {item.documentNo && (
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#42D8D5]/10 border border-[#42D8D5]/30 text-xs font-mono-tech text-[#42D8D5]">
+                      <ShieldCheck className="w-4 h-4 text-[#42D8D5] shrink-0" />
+                      <span>
+                        Document No.: <strong className="text-white font-bold tracking-wider">{item.documentNo}</strong>
+                      </span>
                     </div>
                   )}
+
+                  <p className={`text-sm text-[#E2E8F5]/85 leading-relaxed whitespace-pre-line ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}

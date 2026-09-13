@@ -48,6 +48,7 @@ export interface TimelineEntry {
   location: string;
   description: string;
   statusNote?: string;
+  documentNo?: string;
 }
 
 export interface EducationEntry {
