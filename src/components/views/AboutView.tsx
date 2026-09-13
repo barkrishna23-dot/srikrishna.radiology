@@ -134,7 +134,7 @@ export const AboutView: React.FC = () => {
                         sIdx > 0 ? 'pt-6 border-t border-[#20284A]' : ''
                       }`}
                     >
-                      <h2 className="text-xl sm:text-2xl font-bold text-white font-bengali">
+                      <h2 className="text-xl sm:text-2xl slogan-text">
                         {section.title}
                       </h2>
                       <div className="space-y-3">
@@ -151,7 +151,7 @@ export const AboutView: React.FC = () => {
                   ))
                 ) : (
                   <>
-                    <h2 className="text-xl sm:text-2xl font-bold text-white font-bengali">
+                    <h2 className="text-xl sm:text-2xl slogan-text">
                       {t.about.bioTitle}
                     </h2>
                     <p className="text-base text-[#E2E8F5]/90 leading-relaxed font-bengali">

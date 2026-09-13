@@ -10,7 +10,9 @@ interface HomeHeroProps {
 }
 
 export const HomeHero: React.FC<HomeHeroProps> = ({ onNavigate }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const isEnglish = language === 'en';
 
   return (
     <section
@@ -22,13 +24,21 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onNavigate }) => {
         {/* Left Column: ~56% width (7 of 12 columns) */}
         <div className="lg:col-span-7 flex flex-col justify-center space-y-5 pt-[0.5in]">
           {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.28] font-bengali">
+          <h1
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-[46px] tracking-tight text-white leading-[1.28] ${
+              isEnglish ? 'font-lora font-medium' : 'font-bengali font-bold'
+            }`}
+          >
             {t.hero.heading.includes(',') ? (
               <>
                 <span className="text-white drop-shadow-sm">
                   {t.hero.heading.split(',')[0]},
                 </span>{' '}
-                <span className="block sm:inline text-white font-bold drop-shadow-sm">
+                <span
+                  className={`block sm:inline text-white drop-shadow-sm ${
+                    isEnglish ? 'font-medium' : 'font-bold'
+                  }`}
+                >
                   {t.hero.heading.split(',')[1]}
                 </span>
               </>

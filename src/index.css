@@ -33,8 +33,19 @@ body {
   font-family: Georgia, serif;
 }
 
+.font-lora {
+  font-family: "Lora", Georgia, serif;
+}
+
 .font-english {
-  font-family: Arial, sans-serif;
+  font-family: "Lora", Georgia, serif;
+}
+
+.slogan-text {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: bold;
+  color: #00a0b0;
 }
 
 /* Custom scrollbar */
