@@ -102,6 +102,24 @@ export interface TranslationSchema {
     distDesc: string;
     shieldLabel: string;
     shieldDesc: string;
+    rso: {
+      badge: string;
+      docNo: string;
+      heading: string;
+      subHeading: string;
+      introP1: string;
+      introP2: string;
+      responsibilitiesTitle: string;
+      responsibilities: {
+        id: string;
+        num: string;
+        title: string;
+        description: string;
+        tag: string;
+      }[];
+      collaborativeTitle: string;
+      collaborativeDesc: string;
+    };
     modalities: {
       id: string;
       title: string;
@@ -471,6 +489,70 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
       distDesc: 'ইনভার্স স্কয়ার ল অনুযায়ী নিরাপদ দূরত্ব বজায় রাখা।',
       shieldLabel: 'LEAD SHIELDING',
       shieldDesc: 'সংবেদনশীল অঙ্গের সুরক্ষায় স্ট্যান্ডার্ড লেড বেরিয়ার।',
+      rso: {
+        badge: 'RADIOLOGICAL SAFETY OFFICER (RSO)',
+        docNo: 'Document No.: 24-RSO-1243744',
+        heading: 'RSO — রেডিয়েশন সুরক্ষায় সচেতনতা, পর্যবেক্ষণ ও দায়িত্ব',
+        subHeading: 'Radiological Safety Officer | বিকিরণ সুরক্ষা কর্মকর্তা',
+        introP1:
+          'রেডিওলজিতে প্রযুক্তির সঠিক ব্যবহারের পাশাপাশি প্রয়োজন একটি সুসংগঠিত নিরাপত্তাব্যবস্থা। এক্স-রে ও সিটি স্ক্যানের মতো আয়নাইজিং বিকিরণ ব্যবহারকারী প্রতিষ্ঠানে এই ব্যবস্থা কার্যকর রাখতে গুরুত্বপূর্ণ ভূমিকা পালন করেন একজন Radiological Safety Officer—RSO। তাঁর কাজের প্রধান ক্ষেত্র হলো কর্মী ও সাধারণ মানুষের বিকিরণ সুরক্ষা, কর্মপরিবেশ পর্যবেক্ষণ এবং প্রযোজ্য নিরাপত্তাবিধি অনুসরণে সহায়তা করা।',
+        introP2:
+          'এই দায়িত্বে প্রয়োজন প্রযুক্তিগত জ্ঞান, নিয়মিত পর্যবেক্ষণ, সঠিক নথি সংরক্ষণ এবং দলের সঙ্গে পরিষ্কার যোগাযোগ। কোথায় সুরক্ষাব্যবস্থার উন্নতি প্রয়োজন, কোন ঘটনায় তদন্ত দরকার এবং কীভাবে কর্মীদের সচেতনতা বাড়ানো যায়—এসব বিষয় সমন্বয় করে একটি দায়িত্বশীল কর্মপরিবেশ গড়ে তুলতে সহায়তা করেন RSO।',
+        responsibilitiesTitle: 'প্রধান দায়িত্ব ও কাজের ক্ষেত্র',
+        responsibilities: [
+          {
+            id: 'dose-monitoring',
+            num: '১',
+            title: 'কর্মীদের রেডিয়েশন ডোজ পর্যবেক্ষণ',
+            tag: 'TLD / OSL DOSIMETRY',
+            description:
+              'ব্যক্তিগত ডোজিমিটার—যেমন TLD বা OSL ব্যাজ—ব্যবহারের ব্যবস্থা ও সংশ্লিষ্ট ডোজ রিপোর্ট পর্যালোচনায় ভূমিকা রাখা। অস্বাভাবিক রিডিং পাওয়া গেলে সম্ভাব্য কারণ অনুসন্ধান এবং প্রয়োজনীয় সংশোধনমূলক পদক্ষেপে সহায়তা করা। ডোজিমিটার বিকিরণের মাত্রা পর্যবেক্ষণ করে; এটি নিজে বিকিরণ থেকে সুরক্ষা দেয় না।',
+          },
+          {
+            id: 'workplace-survey',
+            num: '২',
+            title: 'কর্মস্থলের সুরক্ষাব্যবস্থা পর্যবেক্ষণ',
+            tag: 'WORKPLACE SHIELDING',
+            description:
+              'নির্ধারিত কর্মক্ষেত্রে রেডিয়েশন মনিটরিং, শিল্ডিংয়ের কার্যকারিতা মূল্যায়ন এবং নিয়ন্ত্রিত এলাকায় প্রবেশের নিয়ম অনুসরণে সংশ্লিষ্ট দলের সঙ্গে কাজ করা। নতুন যন্ত্র স্থাপন বা কক্ষের পরিবর্তনের পর প্রয়োজনীয় সুরক্ষা মূল্যায়নের সমন্বয়ও এর অন্তর্ভুক্ত হতে পারে।',
+          },
+          {
+            id: 'documentation',
+            num: '৩',
+            title: 'নিরাপত্তাবিধি ও নথি ব্যবস্থাপনা',
+            tag: 'COMPLIANCE & RECORDS',
+            description:
+              'প্রতিষ্ঠানের রেডিয়েশন সুরক্ষা কর্মসূচি বাস্তবায়নে সহায়তা করা এবং পর্যবেক্ষণের ফলাফল, ডোজ রিপোর্ট, প্রশিক্ষণ ও সংশোধনমূলক কার্যক্রমের নথি যথাযথভাবে সংরক্ষণে ভূমিকা রাখা।',
+          },
+          {
+            id: 'training',
+            num: '৪',
+            title: 'কর্মীদের প্রশিক্ষণ ও সচেতনতা',
+            tag: 'AWARENESS & SAFETY',
+            description:
+              'রেডিয়েশন ঝুঁকি, ব্যক্তিগত ডোজিমিটারের সঠিক ব্যবহার, সুরক্ষা সরঞ্জামের যত্ন এবং প্রতিষ্ঠানের নিরাপত্তা নির্দেশনা সম্পর্কে কর্মীদের প্রশিক্ষণ দেওয়া বা প্রশিক্ষণের আয়োজন করা। নিয়মগুলো বোঝা ও দৈনন্দিন কাজে প্রয়োগ করাই এখানে মূল লক্ষ্য।',
+          },
+          {
+            id: 'equipment-coordination',
+            num: '৫',
+            title: 'সুরক্ষা সরঞ্জাম ও কারিগরি দলের সঙ্গে সমন্বয়',
+            tag: 'PPE & QA CO-ORDINATION',
+            description:
+              'প্রযোজ্য ক্ষেত্রে লেড অ্যাপ্রনসহ সুরক্ষা সরঞ্জামের অবস্থা পর্যবেক্ষণ এবং প্রয়োজনীয় পরীক্ষার ব্যবস্থা করতে সহায়তা করা। মেডিক্যাল ফিজিসিস্ট ও সংশ্লিষ্ট কারিগরি দলের সঙ্গে সমন্বয় করে সুরক্ষাসংক্রান্ত সমস্যা চিহ্নিত ও সমাধানে কাজ করা।',
+          },
+          {
+            id: 'incident-response',
+            num: '৬',
+            title: 'অস্বাভাবিক ঘটনা ও জরুরি পরিস্থিতিতে সহায়তা',
+            tag: 'INCIDENT PROTOCOL',
+            description:
+              'সুরক্ষাবিধির ব্যত্যয় বা অস্বাভাবিক এক্সপোজারের আশঙ্কা দেখা দিলে প্রতিষ্ঠানের নির্ধারিত পদ্ধতি অনুযায়ী রিপোর্টিং, মূল্যায়ন এবং প্রয়োজনীয় প্রতিক্রিয়ায় সহায়তা করা। ঘটনার কারণ থেকে শিক্ষা নিয়ে পুনরাবৃত্তি প্রতিরোধে ব্যবস্থার উন্নয়ন করাও গুরুত্বপূর্ণ।',
+          },
+        ],
+        collaborativeTitle: 'সমন্বিত দায়িত্বে নিরাপদ কর্মপরিবেশ',
+        collaborativeDesc:
+          'RSO-এর ভূমিকা চিকিৎসক, রেডিওলজি টেকনোলজিস্ট, মেডিক্যাল ফিজিসিস্ট ও প্রতিষ্ঠানের ব্যবস্থাপনার কাজের সঙ্গে সম্পর্কিত। রোগীর পরীক্ষা নির্বাচন ও রোগীর ডোজ অপ্টিমাইজেশনের চিকিৎসাগত ও পদার্থবিজ্ঞানভিত্তিক দায়িত্ব সংশ্লিষ্ট যোগ্য পেশাজীবীদের ওপর থাকে। RSO নিজের নির্ধারিত দায়িত্ব অনুযায়ী সুরক্ষাব্যবস্থার তদারকি ও সমন্বয়ে অবদান রাখেন।',
+      },
       modalities: [
         {
           id: 'mri',
@@ -1046,6 +1128,70 @@ export const translations: Record<'bn' | 'en', TranslationSchema> = {
       distDesc: 'Strict adherence to the inverse-square law for staff safety.',
       shieldLabel: 'LEAD SHIELDING',
       shieldDesc: 'Standard lead aprons and thyroid guards for sensitive tissue.',
+      rso: {
+        badge: 'RADIOLOGICAL SAFETY OFFICER (RSO)',
+        docNo: 'Document No.: 24-RSO-1243744',
+        heading: 'RSO — Radiation Safety Awareness, Monitoring & Responsibility',
+        subHeading: 'Radiological Safety Officer | Radiation Protection Standards',
+        introP1:
+          'In diagnostic radiology, alongside the optimal clinical utilization of imaging modalities, a meticulously organized radiation safety framework is essential. In facilities operating ionizing radiation such as X-ray and CT scans, a Radiological Safety Officer (RSO) plays a vital role in maintaining this safety infrastructure. Their primary domain centers on radiation protection of occupational staff and the general public, continuous workplace environmental monitoring, and ensuring strict adherence to applicable radiation safety regulations.',
+        introP2:
+          'This responsibility demands rigorous technical acumen, routine dosimetry audits, meticulous documentation, and seamless communication across medical teams. Identifying areas for shielding enhancement, conducting investigations during protocol anomalies, and continually elevating radiation awareness among personnel are key to cultivating an ethical and compliant clinical environment.',
+        responsibilitiesTitle: 'Key Responsibilities & Operational Scope',
+        responsibilities: [
+          {
+            id: 'dose-monitoring',
+            num: '1',
+            title: 'Occupational Dose Monitoring',
+            tag: 'TLD / OSL DOSIMETRY',
+            description:
+              'Facilitating personal dosimeter deployment (such as TLD or OSL badges) and rigorously reviewing cumulative dose reports. Investigating anomalous readings and assisting in corrective interventions. Dosimeters monitor exposure levels; they do not provide radiation shielding.',
+          },
+          {
+            id: 'workplace-survey',
+            num: '2',
+            title: 'Workplace Safety & Shielding Surveillance',
+            tag: 'WORKPLACE SHIELDING',
+            description:
+              'Conducting radiation surveys across designated zones, evaluating structural lead shielding integrity, and enforcing controlled-area access barriers. Coordinating safety evaluations upon new equipment commissioning or room modifications.',
+          },
+          {
+            id: 'documentation',
+            num: '3',
+            title: 'Regulatory Compliance & Record Management',
+            tag: 'COMPLIANCE & RECORDS',
+            description:
+              'Implementing institutional radiation protection protocols and maintaining comprehensive records of survey results, dosimetry reports, safety training, and corrective actions.',
+          },
+          {
+            id: 'training',
+            num: '4',
+            title: 'Staff Training & Radiation Awareness',
+            tag: 'AWARENESS & SAFETY',
+            description:
+              'Conducting education on radiation hazards, proper wear and handling of dosimeters, protective gear maintenance, and institutional safety directives. The core objective is practical daily adherence.',
+          },
+          {
+            id: 'equipment-coordination',
+            num: '5',
+            title: 'Protective Equipment & Multidisciplinary Coordination',
+            tag: 'PPE & QA CO-ORDINATION',
+            description:
+              'Periodically assessing lead aprons, thyroid shields, and protective barriers. Collaborating closely with Medical Physicists, service engineers, and clinical staff to troubleshoot and resolve safety concerns.',
+          },
+          {
+            id: 'incident-response',
+            num: '6',
+            title: 'Incident Response & Emergency Preparedness',
+            tag: 'INCIDENT PROTOCOL',
+            description:
+              'Reporting and assessing safety breaches or unexpected radiation exposure following established clinical guidelines. Implementing root-cause analyses to strengthen preventive mechanisms against recurrence.',
+          },
+        ],
+        collaborativeTitle: 'Collaborative Responsibility for a Safe Workplace',
+        collaborativeDesc:
+          'The RSO role functions in synergy with Radiologists, Radiology Technologists, Medical Physicists, and healthcare leadership. While medical prescription and patient dose optimization remain the domain of qualified medical specialists, the RSO provides dedicated stewardship and regulatory oversight for overall radiation safety.',
+      },
       modalities: [
         {
           id: 'mri',

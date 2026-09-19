@@ -316,6 +316,18 @@ export const AboutView: React.FC = () => {
                   <p className={`text-sm text-[#E2E8F5]/85 leading-relaxed whitespace-pre-line ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
                     {item.description}
                   </p>
+
+                  {item.id === 'rso' && (
+                    <div className="pt-1">
+                      <a
+                        href="#radiology"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono-tech text-[#42D8D5] hover:text-white bg-[#0B1026] px-3 py-1.5 rounded-lg border border-[#20284A] hover:border-[#42D8D5]/50 transition-colors"
+                      >
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#42D8D5]" />
+                        <span>{language === 'bn' ? 'RSO দায়িত্ব ও প্রোটোকল বিস্তারিত দেখুন →' : 'View Full RSO Protocols & Duties →'}</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

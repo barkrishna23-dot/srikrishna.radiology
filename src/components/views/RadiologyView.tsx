@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import {
   Activity,
-  Shield,
   Layers,
   Cpu,
   CheckCircle2,
   Scan,
+  ShieldCheck,
+  FileCheck,
+  Users,
+  AlertTriangle,
+  GraduationCap,
+  Eye,
 } from 'lucide-react';
 
 export const RadiologyView: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedModalityId, setSelectedModalityId] = useState('mri');
 
   const selectedModality =
@@ -102,13 +107,61 @@ export const RadiologyView: React.FC = () => {
             <p className="text-base text-[#E2E8F5]/90 leading-relaxed font-bengali">
               {selectedModality.description}
             </p>
-            <div className="p-4 rounded-xl bg-[#0B1026]/70 border border-[#20284A] space-y-1.5">
-              <span className="text-xs font-mono-tech text-[#FF873B] block">
-                {t.radiology.scientificPrinciple}
-              </span>
-              <p className="text-sm text-[#E2E8F5]/85 font-bengali">
-                {selectedModality.principles}
-              </p>
+            <div className="rounded-2xl bg-[#0B1026]/75 border border-[#20284A] p-4 sm:p-5 space-y-3.5 shadow-xl">
+              {selectedModality.id === 'mri' ? (
+                <>
+                  <div className="flex items-center justify-between pb-3 border-b border-[#20284A]">
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#42D8D5] animate-pulse" />
+                      <h4 className={`text-base sm:text-lg font-bold text-white tracking-tight ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+                        {language === 'bn' ? 'স্পেশাল কেস' : 'Special Cases'}
+                      </h4>
+                    </div>
+                    <span className="text-[11px] font-mono-tech px-2.5 py-0.5 rounded-full bg-[#151D38] text-[#42D8D5] border border-[#42D8D5]/30">
+                      13 Protocols
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    {[
+                      'MRI Brain — Epilepsy Protocol',
+                      'MRI Brain — Stroke Protocol',
+                      'MRI Brain Perfusion',
+                      'MR Spectroscopy — MRS',
+                      'MRI Brain — Functional Study',
+                      'MRI Pituitary',
+                      'MRI Brain + IAC / CP Angle',
+                      'MRI Brain MRA + MRV',
+                      'MR Abdominal Angiography',
+                      'MR Fistulogram',
+                      'MRI Both Brachial Plexuses',
+                      'MRI Both Breasts',
+                      'MR Lower lim Angiography',
+                    ].map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-3 p-2.5 rounded-xl bg-[#151D38]/50 hover:bg-[#151D38] border border-[#20284A] hover:border-[#42D8D5]/30 transition-all duration-200"
+                      >
+                        <span className="w-6 h-6 rounded-lg bg-[#42D8D5]/10 border border-[#42D8D5]/30 text-[#42D8D5] flex items-center justify-center text-xs font-mono-tech font-bold shrink-0">
+                          {idx + 1}
+                        </span>
+                        <span className="text-xs sm:text-sm font-medium text-white tracking-wide">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-1.5">
+                  <span className="text-xs font-mono-tech text-[#FF873B] block">
+                    {t.radiology.scientificPrinciple}
+                  </span>
+                  <p className="text-sm text-[#E2E8F5]/85 font-bengali">
+                    {selectedModality.principles}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -130,29 +183,150 @@ export const RadiologyView: React.FC = () => {
         </div>
       </div>
 
-      {/* Radiation Protection & Safety Callout Box */}
-      <div className="rounded-2xl bg-gradient-to-r from-[#151D38] to-[#191535] border border-[#20284A] p-6 sm:p-8 space-y-4 shadow-lg">
-        <div className="flex items-center gap-2.5 text-[#FF873B]">
-          <Shield className="w-5 h-5" />
-          <h3 className="text-xl font-bold text-white font-bengali">
-            {t.radiology.alaraTitle}
-          </h3>
+      {/* Radiation Protection & RSO Framework Section */}
+      <div id="section-rso" className="rounded-3xl bg-[#151D38] border border-[#20284A] p-6 sm:p-10 space-y-8 shadow-2xl relative overflow-hidden">
+        {/* Subtle decorative glow */}
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#42D8D5]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#FF873B]/5 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Header Block: Title, Badges & Document No */}
+        <div className="space-y-4 border-b border-[#20284A] pb-6 relative z-10">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-tech bg-[#0B1026] text-[#42D8D5] border border-[#42D8D5]/30 shadow-sm">
+              <ShieldCheck className="w-4 h-4 text-[#42D8D5]" />
+              <span>{t.radiology.rso.badge}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#42D8D5]/10 border border-[#42D8D5]/40 text-xs font-mono-tech text-[#42D8D5]">
+              <span className="w-2 h-2 rounded-full bg-[#42D8D5] animate-pulse" />
+              <span>
+                Document No.: <strong className="text-white font-bold tracking-wider">24-RSO-1243744</strong>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+              {t.radiology.rso.heading}
+            </h2>
+            <p className={`text-sm sm:text-base text-[#FF873B] font-mono-tech mt-1.5 font-medium ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+              {t.radiology.rso.subHeading}
+            </p>
+          </div>
+
+          {/* Context & Foundation Paragraphs */}
+          <div className={`space-y-3 pt-2 text-[#E2E8F5]/90 text-sm sm:text-base leading-relaxed ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+            <p className="border-l-2 border-[#42D8D5] pl-4 bg-[#0B1026]/40 py-2 rounded-r-xl">
+              {t.radiology.rso.introP1}
+            </p>
+            <p className="text-[#E2E8F5]/80 pl-4">
+              {t.radiology.rso.introP2}
+            </p>
+          </div>
         </div>
-        <p className="text-sm sm:text-base text-[#E2E8F5]/85 font-bengali leading-relaxed">
-          {t.radiology.alaraDesc}
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div className="p-3.5 rounded-xl bg-[#0B1026] border border-[#20284A] text-xs font-mono-tech">
-            <span className="text-[#42D8D5] block mb-1">{t.radiology.timeLabel}</span>
-            <p className="text-[#E2E8F5]/70 font-bengali">{t.radiology.timeDesc}</p>
+
+        {/* 6 Key Responsibilities Grid */}
+        <div className="space-y-5 relative z-10">
+          <div className="flex items-center gap-2.5">
+            <span className="w-3 h-3 rounded-full bg-[#42D8D5]" />
+            <h3 className={`text-xl sm:text-2xl font-bold text-white tracking-tight ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+              {t.radiology.rso.responsibilitiesTitle}
+            </h3>
           </div>
-          <div className="p-3.5 rounded-xl bg-[#0B1026] border border-[#20284A] text-xs font-mono-tech">
-            <span className="text-[#FF873B] block mb-1">{t.radiology.distLabel}</span>
-            <p className="text-[#E2E8F5]/70 font-bengali">{t.radiology.distDesc}</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {t.radiology.rso.responsibilities.map((item, idx) => {
+              const icons = [Activity, Eye, FileCheck, GraduationCap, ShieldCheck, AlertTriangle];
+              const ItemIcon = icons[idx % icons.length];
+              const colorThemes = [
+                {
+                  iconBg: 'bg-[#42D8D5]/10 border-[#42D8D5]/30 text-[#42D8D5]',
+                  numColor: 'text-[#42D8D5]',
+                  tagBg: 'bg-[#42D8D5]/10 text-[#42D8D5] border-[#42D8D5]/20',
+                  hoverBorder: 'hover:border-[#42D8D5]/60',
+                },
+                {
+                  iconBg: 'bg-[#FF873B]/10 border-[#FF873B]/30 text-[#FF873B]',
+                  numColor: 'text-[#FF873B]',
+                  tagBg: 'bg-[#FF873B]/10 text-[#FF873B] border-[#FF873B]/20',
+                  hoverBorder: 'hover:border-[#FF873B]/60',
+                },
+                {
+                  iconBg: 'bg-[#E44CA5]/10 border-[#E44CA5]/30 text-[#E44CA5]',
+                  numColor: 'text-[#E44CA5]',
+                  tagBg: 'bg-[#E44CA5]/10 text-[#E44CA5] border-[#E44CA5]/20',
+                  hoverBorder: 'hover:border-[#E44CA5]/60',
+                },
+                {
+                  iconBg: 'bg-[#42D8D5]/10 border-[#42D8D5]/30 text-[#42D8D5]',
+                  numColor: 'text-[#42D8D5]',
+                  tagBg: 'bg-[#42D8D5]/10 text-[#42D8D5] border-[#42D8D5]/20',
+                  hoverBorder: 'hover:border-[#42D8D5]/60',
+                },
+                {
+                  iconBg: 'bg-[#FF873B]/10 border-[#FF873B]/30 text-[#FF873B]',
+                  numColor: 'text-[#FF873B]',
+                  tagBg: 'bg-[#FF873B]/10 text-[#FF873B] border-[#FF873B]/20',
+                  hoverBorder: 'hover:border-[#FF873B]/60',
+                },
+                {
+                  iconBg: 'bg-[#E44CA5]/10 border-[#E44CA5]/30 text-[#E44CA5]',
+                  numColor: 'text-[#E44CA5]',
+                  tagBg: 'bg-[#E44CA5]/10 text-[#E44CA5] border-[#E44CA5]/20',
+                  hoverBorder: 'hover:border-[#E44CA5]/60',
+                },
+              ];
+              const theme = colorThemes[idx % colorThemes.length];
+
+              return (
+                <div
+                  key={item.id}
+                  className={`rounded-2xl bg-[#0B1026]/80 border border-[#20284A] p-5 space-y-3.5 ${theme.hoverBorder} transition-all duration-300 shadow-md flex flex-col justify-between`}
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center border ${theme.iconBg}`}>
+                          <ItemIcon className="w-4.5 h-4.5" />
+                        </div>
+                        <span className={`text-xs font-mono-tech font-bold ${theme.numColor}`}>
+                          {language === 'bn' ? `পয়েন্ট ${item.num}` : `Point ${item.num}`}
+                        </span>
+                      </div>
+                      <span className={`text-[10px] font-mono-tech px-2 py-0.5 rounded-full border ${theme.tagBg}`}>
+                        {item.tag}
+                      </span>
+                    </div>
+
+                    <h4 className={`text-base font-bold text-white leading-snug pt-1 ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+                      {item.title}
+                    </h4>
+
+                    <p className={`text-xs sm:text-sm text-[#E2E8F5]/80 leading-relaxed ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className="p-3.5 rounded-xl bg-[#0B1026] border border-[#20284A] text-xs font-mono-tech">
-            <span className="text-[#E44CA5] block mb-1">{t.radiology.shieldLabel}</span>
-            <p className="text-[#E2E8F5]/70 font-bengali">{t.radiology.shieldDesc}</p>
+        </div>
+
+        {/* Collaborative Workplace Banner */}
+        <div className="rounded-2xl bg-gradient-to-r from-[#172147] to-[#121A38] border border-[#42D8D5]/30 p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 relative z-10 shadow-lg">
+          <div className="w-12 h-12 rounded-2xl bg-[#0B1026] border border-[#42D8D5]/40 flex items-center justify-center text-[#42D8D5] shrink-0 shadow-inner">
+            <Users className="w-6 h-6 text-[#42D8D5]" />
+          </div>
+          <div className="space-y-1.5 flex-1">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#42D8D5]" />
+              <h4 className={`text-base sm:text-lg font-bold text-white ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+                {t.radiology.rso.collaborativeTitle}
+              </h4>
+            </div>
+            <p className={`text-xs sm:text-sm text-[#E2E8F5]/85 leading-relaxed ${language === 'bn' ? 'font-bengali' : 'font-sans'}`}>
+              {t.radiology.rso.collaborativeDesc}
+            </p>
           </div>
         </div>
       </div>
