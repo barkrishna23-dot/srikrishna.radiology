@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ShieldCheck, MapPin, FileText } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ShieldCheck, MapPin, FileText, Camera } from 'lucide-react';
 import { siteConfig } from '../data/content';
 import { CvModal } from './CvModal';
 
@@ -13,6 +13,7 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
   imageSrc,
 }) => {
   const [isCvOpen, setIsCvOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(() => {
     if (imageSrc) return imageSrc;
     try {
@@ -26,6 +27,12 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
   useEffect(() => {
     if (!currentImage) {
       const testPaths = [
+        '/KRISHNA PICK.jpeg',
+        '/KRISHNA%20PICK.jpeg',
+        '/KRISHNA PICK.jpg',
+        '/krishna_pick.jpeg',
+        '/krishna-pick.jpeg',
+        '/krishna.jpeg',
         '/krish pp.jpg',
         '/krish_pp.jpg',
         '/krish-pp.jpg',
@@ -47,12 +54,61 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
     }
   }, [currentImage]);
 
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        if (result) {
+          setCurrentImage(result);
+          try {
+            localStorage.setItem('srikrishna_portrait_photo', result);
+          } catch {
+            // ignore
+          }
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const result = ev.target?.result as string;
+        if (result) {
+          setCurrentImage(result);
+          try {
+            localStorage.setItem('srikrishna_portrait_photo', result);
+          } catch {
+            // ignore
+          }
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div
       id="personal-portrait-card"
       className={`golden-thin-card transition-all w-full max-w-[440px] mt-3.5 sm:mt-5 ${className}`}
     >
       <div className="relative w-full rounded-[14px] bg-[#12182F] p-3 sm:p-4 overflow-hidden shadow-xl border border-[#20284A]">
+        {/* Hidden File Input for Custom Portrait Photo */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          aria-label="Upload Portrait Photo"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
+
         {/* ID Card Lanyard Punch Slot */}
         <div className="flex justify-center -mt-1 mb-2">
           <div className="w-12 h-1.5 rounded-full bg-[#080D1D] border border-[#26325C] shadow-inner" />
@@ -102,8 +158,19 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
 
           {/* Right side portrait frame: sized like standard passport photo on ID badge */}
           <div
-            title="Srikrishna Bar - Radiology Technologist"
-            className="relative w-24 sm:w-28 h-28 sm:h-32 rounded-lg overflow-hidden border-2 border-[#42D8D5]/50 bg-[#00AEEF] shrink-0 shadow-md select-none"
+            role="button"
+            tabIndex={0}
+            onClick={() => fileInputRef.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={handleDrop}
+            title="ছবি যুক্ত বা পরিবর্তন করতে ক্লিক করুন (বা KRISHNA PICK.jpeg ড্রপ করুন)"
+            className="group relative w-24 sm:w-28 h-28 sm:h-32 rounded-lg overflow-hidden border-2 border-[#42D8D5]/60 hover:border-[#42D8D5] bg-[#00AEEF] shrink-0 shadow-md select-none cursor-pointer transition-all"
           >
             {currentImage ? (
               /* Real portrait photo */
@@ -114,108 +181,156 @@ export const PersonalPortrait: React.FC<PersonalPortraitProps> = ({
                 className="w-full h-full object-cover object-top pointer-events-none"
               />
             ) : (
-              /* Fallback SVG representation matching krish pp.jpg */
+              /* High-fidelity Portrait Representation matching KRISHNA PICK.jpeg */
               <svg
                 viewBox="0 0 160 200"
                 className="w-full h-full object-cover select-none"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
+                <defs>
+                  {/* Studio backdrop gradient */}
+                  <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#00BAF2" />
+                    <stop offset="45%" stopColor="#00A0E9" />
+                    <stop offset="100%" stopColor="#0080D0" />
+                  </linearGradient>
+                  {/* Subtle skin gradient */}
+                  <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#D2936E" />
+                    <stop offset="100%" stopColor="#BA754E" />
+                  </linearGradient>
+                  {/* Necktie gradient */}
+                  <linearGradient id="tieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#8A1830" />
+                    <stop offset="60%" stopColor="#701224" />
+                    <stop offset="100%" stopColor="#550A18" />
+                  </linearGradient>
+                  {/* Shirt shadow */}
+                  <linearGradient id="shirtShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="100%" stopColor="#E2E8F0" />
+                  </linearGradient>
+                </defs>
+
                 {/* Vibrant cyan blue background matching photo */}
-                <rect width="160" height="200" fill="#00AEEF" />
+                <rect width="160" height="200" fill="url(#bgGrad)" />
+
+                {/* Subtle studio glow */}
+                <circle cx="80" cy="85" r="70" fill="#38BDF8" opacity="0.25" />
 
                 {/* White Shirt Shoulder & Torso */}
                 <path
-                  d="M -10 200 L 32 142 L 68 152 L 92 152 L 128 142 L 170 200 Z"
-                  fill="#FFFFFF"
+                  d="M -10 200 L 30 140 L 68 150 L 92 150 L 130 140 L 170 200 Z"
+                  fill="url(#shirtShadow)"
                 />
-                <path d="M 32 142 L 10 200" stroke="#E2E8F0" strokeWidth="1.5" />
-                <path d="M 128 142 L 150 200" stroke="#E2E8F0" strokeWidth="1.5" />
+                <path d="M 30 140 L 8 200" stroke="#CBD5E1" strokeWidth="1.5" />
+                <path d="M 130 140 L 152 200" stroke="#CBD5E1" strokeWidth="1.5" />
 
-                {/* White Collar Flaps */}
+                {/* White Collar Flaps with 3D bevel */}
                 <path
-                  d="M 50 140 L 76 168 L 78 144 L 56 136 Z"
-                  fill="#F8FAFC"
+                  d="M 48 138 L 76 168 L 78 142 L 56 134 Z"
+                  fill="#FFFFFF"
                   stroke="#CBD5E1"
-                  strokeWidth="1"
+                  strokeWidth="1.2"
                 />
                 <path
-                  d="M 110 140 L 84 168 L 82 144 L 104 136 Z"
-                  fill="#F8FAFC"
+                  d="M 112 138 L 84 168 L 82 142 L 104 134 Z"
+                  fill="#FFFFFF"
                   stroke="#CBD5E1"
-                  strokeWidth="1"
+                  strokeWidth="1.2"
                 />
 
                 {/* Burgundy Necktie with micro-dots */}
-                <path d="M 74 152 L 86 152 L 90 200 L 70 200 Z" fill="#7A1C2E" />
-                <path d="M 75 144 L 85 144 L 87 155 L 73 155 Z" fill="#8B1E3F" />
+                <path d="M 74 150 L 86 150 L 91 200 L 69 200 Z" fill="url(#tieGrad)" />
+                <path d="M 74 142 L 86 142 L 88 153 L 72 153 Z" fill="#911C34" />
 
-                <g fill="#FFFFFF" opacity="0.65">
-                  <circle cx="80" cy="160" r="0.9" />
-                  <circle cx="76" cy="166" r="0.9" />
-                  <circle cx="84" cy="166" r="0.9" />
-                  <circle cx="80" cy="172" r="0.9" />
-                  <circle cx="75" cy="178" r="0.9" />
-                  <circle cx="85" cy="178" r="0.9" />
-                  <circle cx="80" cy="184" r="0.9" />
-                  <circle cx="75" cy="190" r="0.9" />
-                  <circle cx="85" cy="190" r="0.9" />
-                  <circle cx="80" cy="196" r="0.9" />
+                {/* Fine Silk Tie Micro-dots Pattern */}
+                <g fill="#FFFFFF" opacity="0.8">
+                  <circle cx="80" cy="158" r="0.9" />
+                  <circle cx="76" cy="164" r="0.9" />
+                  <circle cx="84" cy="164" r="0.9" />
+                  <circle cx="80" cy="170" r="0.9" />
+                  <circle cx="75" cy="176" r="0.9" />
+                  <circle cx="85" cy="176" r="0.9" />
+                  <circle cx="80" cy="182" r="0.9" />
+                  <circle cx="74" cy="188" r="0.9" />
+                  <circle cx="86" cy="188" r="0.9" />
+                  <circle cx="80" cy="194" r="0.9" />
                 </g>
-                <g fill="#42D8D5" opacity="0.45">
-                  <circle cx="80" cy="166" r="0.8" />
-                  <circle cx="76" cy="172" r="0.8" />
-                  <circle cx="84" cy="172" r="0.8" />
-                  <circle cx="80" cy="178" r="0.8" />
-                  <circle cx="75" cy="184" r="0.8" />
-                  <circle cx="85" cy="184" r="0.8" />
-                  <circle cx="80" cy="190" r="0.8" />
+                <g fill="#60A5FA" opacity="0.5">
+                  <circle cx="80" cy="164" r="0.8" />
+                  <circle cx="76" cy="170" r="0.8" />
+                  <circle cx="84" cy="170" r="0.8" />
+                  <circle cx="80" cy="176" r="0.8" />
+                  <circle cx="75" cy="182" r="0.8" />
+                  <circle cx="85" cy="182" r="0.8" />
+                  <circle cx="80" cy="188" r="0.8" />
                 </g>
 
-                {/* Neck */}
-                <path d="M 66 110 L 94 110 L 98 146 L 62 146 Z" fill="#B97852" />
-                <path d="M 66 122 C 74 135 86 135 94 122 Z" fill="#9D5E39" opacity="0.45" />
+                {/* Neck & Neck Shadow */}
+                <path d="M 65 108 L 95 108 L 98 144 L 62 144 Z" fill="url(#skinGrad)" />
+                <path d="M 64 122 C 72 136 88 136 96 122 Z" fill="#9A5936" opacity="0.4" />
 
                 {/* Head / Face */}
-                <ellipse cx="80" cy="86" rx="30" ry="36" fill="#C4845E" />
-                <ellipse cx="68" cy="90" rx="9" ry="7" fill="#CF8F69" opacity="0.6" />
-                <ellipse cx="92" cy="90" rx="9" ry="7" fill="#CF8F69" opacity="0.6" />
+                <ellipse cx="80" cy="84" rx="30" ry="37" fill="url(#skinGrad)" />
+                {/* Cheeks soft contour */}
+                <ellipse cx="66" cy="88" rx="8" ry="6" fill="#DC9C78" opacity="0.5" />
+                <ellipse cx="94" cy="88" rx="8" ry="6" fill="#DC9C78" opacity="0.5" />
 
                 {/* Ears */}
-                <path d="M 49 84 C 47 78, 48 94, 51 98 Z" fill="#B5754F" />
-                <path d="M 111 84 C 113 78, 112 94, 109 98 Z" fill="#B5754F" />
+                <path d="M 49 82 C 46 76, 47 92, 51 96 Z" fill="#B7734E" />
+                <path d="M 111 82 C 114 76, 113 92, 109 96 Z" fill="#B7734E" />
 
-                {/* Hair - side-swept style matching photo */}
+                {/* Hair - Neat side-swept parting matching KRISHNA PICK.jpeg */}
                 <path
-                  d="M 48 80 C 47 50, 66 42, 80 42 C 98 42, 113 52, 111 80 C 105 58, 96 52, 78 54 C 62 56, 52 68, 48 80 Z"
-                  fill="#171515"
+                  d="M 48 78 C 47 48, 65 40, 80 40 C 98 40, 114 50, 112 78 C 105 56, 96 50, 78 52 C 62 54, 52 66, 48 78 Z"
+                  fill="#121111"
                 />
-                <path d="M 62 48 C 76 44, 94 48, 106 60" stroke="#292524" strokeWidth="2.5" strokeLinecap="round" />
-                <path d="M 52 74 C 54 62, 64 54, 76 52" stroke="#292524" strokeWidth="2" strokeLinecap="round" />
+                <path d="M 60 46 C 74 42, 92 46, 104 58" stroke="#262323" strokeWidth="2.2" strokeLinecap="round" />
+                <path d="M 52 72 C 54 60, 64 52, 76 50" stroke="#262323" strokeWidth="2" strokeLinecap="round" />
 
                 {/* Eyebrows */}
-                <path d="M 61 74 Q 70 70 76 74" stroke="#1F1D1D" strokeWidth="2.8" strokeLinecap="round" />
-                <path d="M 84 74 Q 90 70 99 74" stroke="#1F1D1D" strokeWidth="2.8" strokeLinecap="round" />
+                <path d="M 60 72 Q 69 68 76 72" stroke="#1A1818" strokeWidth="2.8" strokeLinecap="round" />
+                <path d="M 84 72 Q 91 68 100 72" stroke="#1A1818" strokeWidth="2.8" strokeLinecap="round" />
 
                 {/* Eyes */}
-                <ellipse cx="69" cy="80" rx="4" ry="2.6" fill="#1C1917" />
-                <ellipse cx="91" cy="80" rx="4" ry="2.6" fill="#1C1917" />
-                <circle cx="70" cy="79" r="1" fill="#FFFFFF" />
-                <circle cx="92" cy="79" r="1" fill="#FFFFFF" />
+                <ellipse cx="68" cy="78" rx="4.2" ry="2.8" fill="#141212" />
+                <ellipse cx="92" cy="78" rx="4.2" ry="2.8" fill="#141212" />
+                {/* White Catchlights */}
+                <circle cx="69" cy="77" r="1.1" fill="#FFFFFF" />
+                <circle cx="93" cy="77" r="1.1" fill="#FFFFFF" />
 
-                {/* Nose */}
-                <path d="M 80 79 L 77 92 L 83 93" stroke="#9E5D39" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-                <path d="M 74 94 Q 80 97 86 94" stroke="#9E5D39" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+                {/* Nose bridge and tip */}
+                <path d="M 80 77 L 77 90 L 83 91" stroke="#9A5A37" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+                <path d="M 74 92 Q 80 95 86 92" stroke="#9A5A37" strokeWidth="1.6" strokeLinecap="round" fill="none" />
 
-                {/* Mustache */}
-                <path d="M 72 99 Q 80 97 88 99" stroke="#231F20" strokeWidth="2.4" strokeLinecap="round" />
+                {/* Mustache matching photo */}
+                <path d="M 71 97 Q 80 95 89 97" stroke="#1C1819" strokeWidth="2.6" strokeLinecap="round" />
 
-                {/* Smile / Lips */}
-                <path d="M 73 104 Q 80 109 87 104" stroke="#882C18" strokeWidth="2.2" strokeLinecap="round" fill="#9F3622" />
+                {/* Polite, confident smile */}
+                <path d="M 73 102 Q 80 107 87 102" stroke="#8E2D1A" strokeWidth="2.2" strokeLinecap="round" fill="#A83924" />
 
                 {/* Chin goatee stubble */}
-                <ellipse cx="80" cy="114" rx="6" ry="2.5" fill="#231F20" opacity="0.65" />
+                <ellipse cx="80" cy="112" rx="6" ry="2.5" fill="#1C1819" opacity="0.6" />
               </svg>
+            )}
+
+            {/* Hover overlay hint to click or drop photo */}
+            <div className="absolute inset-0 bg-black/55 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity text-white text-[11px] font-medium p-1 text-center backdrop-blur-[1px]">
+              <Camera className="w-5 h-5 mb-1 text-[#42D8D5]" />
+              <span className="leading-tight text-white font-semibold">ছবি আপলোড</span>
+              <span className="text-[9px] text-[#42D8D5]">KRISHNA PICK</span>
+            </div>
+
+            {/* Subtle camera badge indicator */}
+            {!currentImage && (
+              <div
+                className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-xs p-1 rounded-md border border-white/20 text-[#42D8D5] shadow-sm pointer-events-none"
+                title="ছবি সিলেক্ট করুন"
+              >
+                <Camera className="w-3 h-3" />
+              </div>
             )}
           </div>
         </div>
